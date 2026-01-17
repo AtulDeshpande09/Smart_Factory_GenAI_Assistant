@@ -1,0 +1,10 @@
+{"id":"inc-01","document_type":"incident","text":"A high-vibration anomaly was detected on CNC-01 exceeding safe thresholds.","metadata":{"machine_id":"CNC-01","severity":"medium","incident_type":"vibration"}}
+{"id":"inc-02","document_type":"incident","text":"Coolant pressure dropped suddenly on CNC-02, triggering an overheating alarm.","metadata":{"machine_id":"CNC-02","severity":"high","incident_type":"coolant"}}
+{"id":"inc-03","document_type":"incident","text":"CNC-03 stopped unexpectedly due to loss of sensor feedback.","metadata":{"machine_id":"CNC-03","severity":"medium","incident_type":"sensor"}}
+{"id":"inc-04","document_type":"incident","text":"Axis deviation was detected on CNC-04 during precision milling.","metadata":{"machine_id":"CNC-04","severity":"low","incident_type":"alignment"}}
+{"id":"inc-05","document_type":"incident","text":"Power instability caused CNC-05 to reboot during operation.","metadata":{"machine_id":"CNC-05","severity":"high","incident_type":"power"}}
+{"id":"inc-06","document_type":"incident","text":"Lubrication pressure fell below minimum operating levels on CNC-06.","metadata":{"machine_id":"CNC-06","severity":"medium","incident_type":"lubrication"}}
+{"id":"inc-07","document_type":"incident","text":"Tool change failed repeatedly on CNC-07 due to mechanical obstruction.","metadata":{"machine_id":"CNC-07","severity":"medium","incident_type":"tooling"}}
+{"id":"inc-08","document_type":"incident","text":"CNC-08 exceeded thermal limits during extended operation.","metadata":{"machine_id":"CNC-08","severity":"high","incident_type":"overheating"}}
+{"id":"inc-09","document_type":"incident","text":"Controller configuration mismatch caused startup failure on CNC-09.","metadata":{"machine_id":"CNC-09","severity":"high","incident_type":"controller"}}
+{"id":"inc-10","document_type":"incident","text":"Unusual mechanical noise was detected from CNC-10 drive system.","metadata":{"machine_id":"CNC-10","severity":"low","incident_type":"mechanical"}}
