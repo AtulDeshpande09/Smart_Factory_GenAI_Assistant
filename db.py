@@ -1,13 +1,16 @@
-from langchain_community.document_loaders import DirectoryLoader
-from langchain_text_splitters import RecursiveCharacterTextSplitter
+import json
+import os
+from langchain.schema import Document
 from langchain_chroma import Chroma
-from langchain_community.embeddings import HuggingFaceEmbeddings
 from sentence_transformers import SentenceTransformer
 
 DATAPATH = "data/"
 DBPATH = "chroma"
 
-# embedding function
+# ================================
+# Embedding Function
+# ================================
+
 class LocalEmbeddings:
     def __init__(self, model_path="./models/embeddings"):
         self.model = SentenceTransformer(model_path)
@@ -20,41 +23,61 @@ class LocalEmbeddings:
 
 embeddings = LocalEmbeddings("./models/embeddings")
 
-### Load documents 
-def load_documents(DATAPATH=DATAPATH):
-    loader = DirectoryLoader(DATAPATH,glob="*.md")
-    document = loader.load()
-    return document
+# ================================
+# Load JSONL Documents
+# ================================
 
+def load_jsonl_documents(data_path=DATAPATH):
+    documents = []
 
-### divide them into chunks
+    for filename in os.listdir(data_path):
+        if filename.endswith(".jsonl"):
+            file_path = os.path.join(data_path, filename)
+
+            with open(file_path, "r", encoding="utf-8") as f:
+                for line in f:
+                    record = json.loads(line)
+
+                    doc = Document(
+                        page_content=record["text"],
+                        metadata={
+                            **record.get("metadata", {}),
+                            "document_type": record.get("document_type"),
+                            "source_file": filename,
+                            "id": record.get("id")
+                        }
+                    )
+                    documents.append(doc)
+
+    return documents
+
+# ================================
+# (Optional) No Chunking
+# ================================
 
 def split_text(documents):
+    """
+    We keep each JSONL record as one chunk.
+    This function exists only to keep the pipeline compatible.
+    """
+    return documents
 
-    text_splitter = RecursiveCharacterTextSplitter(
-            chunk_size = 1000,
-            chunk_overlap = 500,
-            length_function = len,
-            add_start_index = True
-            )
-    chunks = text_splitter.split_documents(documents)
-
-    return chunks
+# ================================
+# Main
+# ================================
 
 if __name__ == "__main__":
 
-    documents = load_documents()
-    print(f"Loaded Documents from {DATAPATH}")
-    
-    chunks = split_text(documents)
-    print("Docs divided into chunks")
-    
+    documents = load_jsonl_documents()
+    print(f"Loaded {len(documents)} documents from {DATAPATH}")
 
+    chunks = split_text(documents)
+    print("Documents prepared for embedding")
 
     db = Chroma.from_documents(
-            chunks,
-            embeddings,
-            persist_directory = DBPATH
-            )
-    
+        documents=chunks,
+        embedding=embeddings,
+        persist_directory=DBPATH
+    )
+
     print(f"Vector DB created and saved at {DBPATH}")
