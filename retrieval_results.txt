@@ -1,0 +1,149 @@
+RETRIEVAL RESULTS
+Timestamp: 2026-01-17 13:40:11.817939
+====================================================================================================
+
+TEST 1: Overheating root cause (CNC-02)
+Query  : Why did CNC-02 overheat?
+Filter : {'machine_id': 'CNC-02'}
+----------------------------------------------------------------------------------------------------
+
+Result 1
+Text:
+On January 11, 2025, CNC-02 overheated due to restricted coolant flow. The coolant filter was replaced, restoring normal temperature. Downtime was 40 minutes.
+
+Metadata:
+  id: maint_02
+  document_type: maintenance_log
+  machine_id: CNC-02
+  issue: overheating
+  source_file: logs.jsonl
+  downtime_minutes: 40
+
+Result 2
+Text:
+On January 11, 2025, CNC-02 produced 980 units. Efficiency dropped to 85% due to an overheating stoppage.
+
+Metadata:
+  document_type: production_report
+  machine_id: CNC-02
+  id: prod-02
+  source_file: report.jsonl
+  units_produced: 980
+  efficiency: 85
+
+Result 3
+Text:
+Coolant pressure dropped suddenly on CNC-02, triggering an overheating alarm.
+
+Metadata:
+  document_type: incident
+  source_file: incident.jsonl
+  incident_type: coolant
+  machine_id: CNC-02
+  id: inc-02
+  severity: high
+
+====================================================================================================
+
+TEST 2: SOP for overheating
+Query  : How do I fix coolant overheating?
+Filter : {'document_type': 'sop'}
+----------------------------------------------------------------------------------------------------
+
+Result 1
+Text:
+To resolve overheating issues: shut down the machine, inspect coolant filters, clean or replace filters, verify coolant flow, and restart the machine.
+
+Metadata:
+  system: coolant
+  source_file: sop.jsonl
+  document_type: sop
+  procedure_type: corrective
+  id: sop-01
+
+Result 2
+Text:
+Heat exchanger cleaning procedure: isolate coolant system, flush exchanger, inspect for clogs, and restore coolant flow.
+
+Metadata:
+  document_type: sop
+  procedure_type: preventive
+  system: cooling
+  id: sop-08
+  source_file: sop.jsonl
+
+Result 3
+Text:
+For power instability: inspect power supply, replace faulty units, verify grounding, and test voltage stability.
+
+Metadata:
+  document_type: sop
+  id: sop-05
+  procedure_type: corrective
+  system: power
+  source_file: sop.jsonl
+
+====================================================================================================
+
+TEST 3: Production impact of overheating
+Query  : Did overheating affect production?
+Filter : {'document_type': 'production_report'}
+----------------------------------------------------------------------------------------------------
+
+Result 1
+Text:
+On January 17, 2025, CNC-08 produced 990 units with 84% efficiency due to overheating downtime.
+
+Metadata:
+  efficiency: 84
+  document_type: production_report
+  source_file: report.jsonl
+  units_produced: 990
+  id: prod-08
+  machine_id: CNC-08
+
+Result 2
+Text:
+On January 11, 2025, CNC-02 produced 980 units. Efficiency dropped to 85% due to an overheating stoppage.
+
+Metadata:
+  source_file: report.jsonl
+  efficiency: 85
+  machine_id: CNC-02
+  units_produced: 980
+  document_type: production_report
+  id: prod-02
+
+Result 3
+Text:
+On January 14, 2025, CNC-05 manufactured 1,000 units. Power instability caused a brief stoppage.
+
+Metadata:
+  efficiency: 86
+  id: prod-05
+  units_produced: 1000
+  source_file: report.jsonl
+  machine_id: CNC-05
+  document_type: production_report
+
+====================================================================================================
+
+TEST 4: Controller-related incidents
+Query  : Controller failure incidents
+Filter : {'incident_type': 'controller'}
+----------------------------------------------------------------------------------------------------
+
+Result 1
+Text:
+Controller configuration mismatch caused startup failure on CNC-09.
+
+Metadata:
+  severity: high
+  source_file: incident.jsonl
+  id: inc-09
+  document_type: incident
+  machine_id: CNC-09
+  incident_type: controller
+
+====================================================================================================
+
