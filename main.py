@@ -59,12 +59,25 @@ if __name__ == '__main__':
     results = db.similarity_search_with_score(query_text, k=3)
     reranked = rerank(query_text, results)
 
-    PROMPT_TEMPLATE = """
-    Answer the question based only on the following context : {context}
-    
-    ---
-    Answer the question based on the above context : {query}
+    PROMPT_TEMPLATE = PROMPT_TEMPLATE = """
+        You are an assistant that answers questions strictly using the provided context.
+
+        Rules:
+        - Use ONLY the information in the context.
+        - Do NOT use prior knowledge.
+        - If the answer is not explicitly stated, respond with: "I don't know".
+        - Be concise and factual.
+
+        Context:
+        {context}
+
+        ---
+        Question:
+        {query}
+
+        Answer:
     """
+
 
     # Actual Prompt
     context_text = "\n\n---\n\n".join([doc.page_content for doc,_score in results])
