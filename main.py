@@ -65,7 +65,7 @@ if __name__ == '__main__':
         Rules:
         - Use ONLY the information in the context.
         - Do NOT use prior knowledge.
-        - If the answer is not explicitly stated, respond with: "I don't know".
+        - If the answer is not explicitly stated, respond with: "No root cause found in available documents.".
         - Be concise and factual.
 
         Context:
